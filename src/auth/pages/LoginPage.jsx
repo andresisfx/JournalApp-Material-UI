@@ -1,5 +1,6 @@
+import { Link as RouterLink } from 'react-router-dom'
 import { Google } from '@mui/icons-material'
-import {  Grid2,Button, TextField, Typography } from '@mui/material'
+import {  Grid2,Button, TextField, Typography, Link } from '@mui/material'
 
 export const LoginPage = () => {
   return (
@@ -49,12 +50,18 @@ export const LoginPage = () => {
 
                   </Grid2>
 
-                  <Grid2 item size={{xs: 12,sm: 6, md: 6}}  sx={{ mb: 1,mt: 1 }}>
+                  <Grid2 item size={{xs: 12,sm: 6, md: 6}}  sx={{ mb: 1,mt: 1 }} justifyContent='end'>
                     
                     <Button variant='contained' fullWidth>
                       <Google/>
                       <Typography>Google</Typography>
                     </Button>
+
+                  </Grid2>
+                  <Grid2 container direction='row' justifyContent='end'>
+                    <Link component={RouterLink} color='inherit' to="/auth/register">
+                      ¿No tienes cuenta?
+                    </Link>
 
                   </Grid2>
               </Grid2>
