@@ -1,34 +1,44 @@
 import { Link as RouterLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { Google } from '@mui/icons-material'
 import {  Grid2,Button, TextField, Typography, Link } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
+import { checkingAuthentication ,startGoogleSignIn} from '../../store/auth'
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
 
   const {email, password, onInputChange}= useForm({
     email: 'andres@gmail.com',
     password: '123456' 
 
   });
-
+  
+  
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log({email, password});
+    console.log({email, password})
+    dispatch(checkingAuthentication());
+    
+  }
+
+  const onGoogleSignIn = () => {
+    dispatch(startGoogleSignIn())
   }
   return (
     <AuthLayout title='Login' >
         <form  onSubmit={onSubmit}>
             <Grid2  container>
-                <Grid2 item size={{xs: 12, md: 12}} sx={{ mb: 2 }}>
+                <Grid2 item={true} size={{xs: 12, md: 12}} sx={{ mb: 2 }}>
                   <TextField
                     type="email"
                     label="Correo"
                     placeholder='correo'
                     fullWidth
-                    // name='email'
-                    // value={email}
-                    // onChange={onInputChange}
+                    name='email'
+                    value={email}
+                    onChange={onInputChange}
                     
                   />
                   
@@ -57,13 +67,13 @@ export const LoginPage = () => {
 
                   <Grid2 item size={{xs: 12,sm: 6, md: 6}}  sx={{ mb: 1,mt: 1 }} >
                     
-                    <Button variant='contained' fullWidth>
+                    <Button variant='contained' fullWidth onClick={onGoogleSignIn}>
                       <Google/>
                       <Typography>Google</Typography>
                     </Button>
 
                   </Grid2>
-                  <Grid2 container direction='row' justifyContent='end'>
+                  <Grid2 container direction='row' >
                     <Typography sx={{ mr: 1 }}>¿No tienes cuenta?</Typography>
                     <Link component={RouterLink} color='inherit' to="/auth/register">
                       Regístrate
