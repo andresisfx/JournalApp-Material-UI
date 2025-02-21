@@ -10,7 +10,7 @@ import { useMemo } from 'react'
 export const LoginPage = () => {
   const dispatch = useDispatch();
 
-  const {status}= useSelector(state => state.auth)
+  const {status}= useSelector(state => state.authStore)
 
   const {email, password, onInputChange}= useForm({
     email: 'andres@gmail.com',
@@ -30,7 +30,7 @@ export const LoginPage = () => {
     dispatch(startGoogleSignIn())
   }
 
-  const authenticating= useMemo(() => dispatch(checkingAuthentication()), [dispatch])
+  const authenticating= useMemo(() => status === 'checking', [status])
   return (
     <AuthLayout title='Login' >
         <form  onSubmit={onSubmit}>
@@ -64,7 +64,7 @@ export const LoginPage = () => {
               <Grid2 container spacing={2} sx={{mb: 2, mt: 2,}} >
                   <Grid2 item size={{xs: 12, sm:6, md: 6}}  sx={{ mb: 1,mt: 1}}>
 
-                    <Button type='submit' variant='contained' fullWidth>
+                    <Button type='submit' variant='contained' fullWidth disabled={ authenticating }>
                       Login
                     </Button>
 
@@ -72,7 +72,7 @@ export const LoginPage = () => {
 
                   <Grid2 item size={{xs: 12,sm: 6, md: 6}}  sx={{ mb: 1,mt: 1 }} >
                     
-                    <Button variant='contained' fullWidth onClick={onGoogleSignIn}>
+                    <Button variant='contained' fullWidth onClick={onGoogleSignIn} disabled={ authenticating }>
                       <Google/>
                       <Typography>Google</Typography>
                     </Button>
