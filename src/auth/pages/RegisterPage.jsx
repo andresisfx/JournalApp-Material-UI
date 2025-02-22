@@ -14,11 +14,12 @@ const initialForm = {
 }
 export const RegisterPage = () => {
 
-  const {displayName,email, password, onInputChange,formState}= useForm(initialForm);
 
+  const [formSubmited, setFormSubmited] = useState(false)
+  
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(formState)
+    setFormSubmited(true);
     
   }
   const formValidations={
@@ -26,8 +27,12 @@ export const RegisterPage = () => {
     password: [(value) => value.length >= 6, 'El password debe tener más de 6 letras.'],
     displayName: [(value) => value.length >= 1, 'El nombre es obligatorio.']
   }
+  const {displayName,email, password, onInputChange,formState,formValidation,displayNameValid,emailValid,passwordValid,isFormValid}= useForm(initialForm,formValidations);
+  console.log(formValidation)
+
   return (
     <AuthLayout title='Crear cuenta' >
+      <h1>estado del Form {isFormValid ? 'valido': 'no valido'}   </h1>
         <form action="" onSubmit={onSubmit}>
             <Grid2  container >
                 <Grid2 item size={{xs: 12, md: 12}} sx={{ mb: 2 }}>
@@ -39,6 +44,8 @@ export const RegisterPage = () => {
                     name='displayName'
                     value={displayName}
                     onChange={onInputChange}
+                    error={!!displayNameValid && formSubmited}
+                    helperText={displayNameValid}
                     
                   />
                   
@@ -52,6 +59,8 @@ export const RegisterPage = () => {
                     name='email'
                     value={email}
                     onChange={onInputChange}
+                    error={!!emailValid && formSubmited}
+                    helperText={emailValid}
                     
                   />
                   
@@ -66,6 +75,8 @@ export const RegisterPage = () => {
                     name='password'
                     value={password}
                     onChange={onInputChange}
+                    error={!!passwordValid && formSubmited}
+                    helperText={passwordValid}
                   />
               </Grid2>
 
