@@ -1,9 +1,11 @@
-import React from 'react'
+import React , { useState } from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
 import { Grid2,Button, TextField, Typography, Link } from '@mui/material'
 import { Google } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
 import { useForm } from '../../hooks'
+import { useDispatch } from 'react-redux'
+import { startCreatingUserWithEmailPassword } from '../../store/auth'
 
 
 const initialForm = {
@@ -14,12 +16,14 @@ const initialForm = {
 }
 export const RegisterPage = () => {
 
-
+  const dispatch = useDispatch();
   const [formSubmited, setFormSubmited] = useState(false)
   
   const onSubmit = (event) => {
     event.preventDefault();
     setFormSubmited(true);
+    dispatch(startCreatingUserWithEmailPassword(formState));
+    console.log("submited")
     
   }
   const formValidations={
@@ -28,7 +32,7 @@ export const RegisterPage = () => {
     displayName: [(value) => value.length >= 1, 'El nombre es obligatorio.']
   }
   const {displayName,email, password, onInputChange,formState,formValidation,displayNameValid,emailValid,passwordValid,isFormValid}= useForm(initialForm,formValidations);
-  console.log(formValidation)
+ 
 
   return (
     <AuthLayout title='Crear cuenta' >
@@ -83,7 +87,7 @@ export const RegisterPage = () => {
               <Grid2 container spacing={1} sx={{mb: 2, mt: 2,flexDirection: 'column',display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
                         <Grid2 item size={{xs: 12, sm:12, md: 12}}  sx={{ mb: 1,mt: 1}}>
 
-                          <Button variant='contained' fullWidth>
+                          <Button variant='contained' fullWidth type='submit'>
                             Registrar cuenta 
                           </Button>
 

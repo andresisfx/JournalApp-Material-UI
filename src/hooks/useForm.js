@@ -12,12 +12,11 @@ export const useForm = ( initialForm = {},formValidations={} ) => {
 
     const isFormValid= useMemo(() => {
         for(const formValue of Object.keys(formValidation)){
-            console.log(formValue)
             if(formValidation[formValue]!==null) return false
         }
         return true
     }, [ formValidation ])
-  console.log("desdeel useform",isFormValid)
+  
     const onInputChange = ({ target }) => {
         const { name, value } = target;
         setFormState({

@@ -11,7 +11,7 @@ export const authSlice = createSlice({
         errorMessage: null
     },
     reducers: {
-        login: (state, {payload}) => {    
+        login: (state, {payload}) => { 
             state.status = 'authenticated';
             state.uid = payload.uid;
             state.email = payload.email;
@@ -20,6 +20,7 @@ export const authSlice = createSlice({
             state.errorMessage = null;
         },
         logout: (state, {payload}) => {
+            
             state.status = 'not-authenticated';
             state.uid = null;
             state.email = null;
