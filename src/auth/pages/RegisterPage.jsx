@@ -4,8 +4,9 @@ import { Grid2,Button, TextField, Typography, Link } from '@mui/material'
 import { Google } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
 import { useForm } from '../../hooks'
-import { useDispatch } from 'react-redux'
+import { useDispatch ,useSelector} from 'react-redux'
 import { startCreatingUserWithEmailPassword } from '../../store/auth'
+import { Alert } from 'bootstrap'
 
 
 const initialForm = {
@@ -18,6 +19,8 @@ export const RegisterPage = () => {
 
   const dispatch = useDispatch();
   const [formSubmited, setFormSubmited] = useState(false)
+  const {status,errorMessage}= useSelector(state => state.authStore)
+  isCheckingAuthenticated= useMemo(() => status === 'authenticated', [status])
   
   const onSubmit = (event) => {
     event.preventDefault();
@@ -36,7 +39,7 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title='Crear cuenta' >
-      <h1>estado del Form {isFormValid ? 'valido': 'no valido'}   </h1>
+      
         <form action="" onSubmit={onSubmit}>
             <Grid2  container >
                 <Grid2 item size={{xs: 12, md: 12}} sx={{ mb: 2 }}>
@@ -87,7 +90,22 @@ export const RegisterPage = () => {
               <Grid2 container spacing={1} sx={{mb: 2, mt: 2,flexDirection: 'column',display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
                         <Grid2 item size={{xs: 12, sm:12, md: 12}}  sx={{ mb: 1,mt: 1}}>
 
-                          <Button variant='contained' fullWidth type='submit'>
+                         <Alert 
+                         severity="error"
+                         display={!!errorMessage? '': 'none'} 
+                         >
+                          
+                          {errorMessage}
+
+                         </Alert>
+
+                        </Grid2>
+                        <Grid2 item size={{xs: 12, sm:12, md: 12}}  sx={{ mb: 1,mt: 1}}>
+
+                          <Button variant='contained' 
+                          fullWidth type='submit'
+                          disabled={isCheckingAuthenticated}
+                          >
                             Registrar cuenta 
                           </Button>
 
