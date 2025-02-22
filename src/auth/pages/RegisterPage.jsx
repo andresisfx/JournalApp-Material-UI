@@ -1,12 +1,12 @@
-import React , { useState } from 'react'
+import React , { useState, useMemo } from 'react'
 import { AuthLayout } from '../layout/AuthLayout'
-import { Grid2,Button, TextField, Typography, Link } from '@mui/material'
+import { Grid2,Button, TextField, Typography, Link, AlertTitle, Alert } from '@mui/material'
 import { Google } from '@mui/icons-material'
 import { Link as RouterLink } from 'react-router-dom'
 import { useForm } from '../../hooks'
 import { useDispatch ,useSelector} from 'react-redux'
 import { startCreatingUserWithEmailPassword } from '../../store/auth'
-import { Alert } from 'bootstrap'
+
 
 
 const initialForm = {
@@ -20,7 +20,7 @@ export const RegisterPage = () => {
   const dispatch = useDispatch();
   const [formSubmited, setFormSubmited] = useState(false)
   const {status,errorMessage}= useSelector(state => state.authStore)
-  isCheckingAuthenticated= useMemo(() => status === 'authenticated', [status])
+  const isCheckingAuthenticated= useMemo(() => status === 'authenticated', [status])
   
   const onSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ export const RegisterPage = () => {
     password: [(value) => value.length >= 6, 'El password debe tener más de 6 letras.'],
     displayName: [(value) => value.length >= 1, 'El nombre es obligatorio.']
   }
-  const {displayName,email, password, onInputChange,formState,formValidation,displayNameValid,emailValid,passwordValid,isFormValid}= useForm(initialForm,formValidations);
+  const {displayName,email, password, onInputChange,formState,displayNameValid,emailValid,passwordValid,isFormValid}= useForm(initialForm,formValidations);
  
 
   return (
@@ -90,9 +90,9 @@ export const RegisterPage = () => {
               <Grid2 container spacing={1} sx={{mb: 2, mt: 2,flexDirection: 'column',display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
                         <Grid2 item size={{xs: 12, sm:12, md: 12}}  sx={{ mb: 1,mt: 1}}>
 
-                         <Alert 
+                         <Alert
                          severity="error"
-                         display={!!errorMessage? '': 'none'} 
+                         sx={{display:!!errorMessage? '': 'none' }}
                          >
                           
                           {errorMessage}

@@ -1,5 +1,6 @@
-import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "./config";
+import { Try } from "@mui/icons-material";
 
 
 const googleAuthProvider = new GoogleAuthProvider();
@@ -57,4 +58,24 @@ export const registerUserWithEmailPasswordProvider = async ({email,password,disp
         };
     }
 
+}
+
+export const loginWithEmailPasswordProvider = async ({email,password}) => {
+    
+    try {
+        const resp = await signInWithEmailAndPassword(firebaseAuth, email, password);
+        const { ok,uid, photoURL, displayName } = resp.user;
+
+
+        return {
+            ok: true,
+            uid, photoURL, displayName
+        };
+    } catch (error) {
+        return {
+            ok: false,
+            errorMessage: error.message
+        };
+        
+    }
 }
