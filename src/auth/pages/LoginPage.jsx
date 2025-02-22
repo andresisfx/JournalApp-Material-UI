@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Google } from '@mui/icons-material'
-import {  Grid2,Button, TextField, Typography, Link } from '@mui/material'
+import {  Grid2,Button, TextField, Typography, Link, Alert } from '@mui/material'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
 import { checkingAuthentication ,startGoogleSignIn, startLoginWithEmailAndPassword} from '../../store/auth'
@@ -10,11 +10,11 @@ import { useMemo } from 'react'
 export const LoginPage = () => {
   const dispatch = useDispatch();
 
-  const {status}= useSelector(state => state.authStore)
+  const {status,errorMessage}= useSelector(state => state.authStore)
 
   const {email, password, onInputChange}= useForm({
-    email: 'andres@gmail.com',
-    password: '123456' 
+    email: '',
+    password: '' 
 
   });
   
@@ -61,8 +61,17 @@ export const LoginPage = () => {
                     onChange={onInputChange}
                   />
               </Grid2>
-
+              <Grid2 container sx={{ mb: 1,mt: 1}}> 
+                 <Grid2 item> 
+                     <Alert 
+                     severity="error" 
+                     sx={{ display: errorMessage ? '' : 'none' }}>
+                      {errorMessage}
+                    </Alert>
+                 </Grid2>     
+              </Grid2>
               <Grid2 container spacing={2} sx={{mb: 2, mt: 2,}} >
+                 
                   <Grid2 item size={{xs: 12, sm:6, md: 6}}  sx={{ mb: 1,mt: 1}}>
 
                     <Button type='submit' variant='contained' fullWidth disabled={ authenticating }>
