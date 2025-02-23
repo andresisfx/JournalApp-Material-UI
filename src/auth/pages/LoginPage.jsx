@@ -34,7 +34,9 @@ export const LoginPage = () => {
   const authenticating= useMemo(() => status === 'checking', [status])
   return (
     <AuthLayout title='Login' >
-        <form  onSubmit={onSubmit}>
+        <form  onSubmit={onSubmit}
+               className='animate__animated animate__fadeIn '
+        >
             <Grid2  container>
                 <Grid2 item={true} size={{xs: 12, md: 12}} sx={{ mb: 2 }}>
                   <TextField
