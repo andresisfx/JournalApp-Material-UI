@@ -8,23 +8,13 @@ import { useEffect } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { firebaseAuth } from "../firebase/config"
 import { login, logout } from "../store/auth"
+import { useCheckAuth } from "../hooks/useCheckAuth"
 
 export const AppRouter = () => {
 
-  const {status} = useSelector(state => state.authStore)
-  const dispatch = useDispatch();
-  useEffect(
-    () => {
-      onAuthStateChanged(firebaseAuth, (user) => {
-        if(!user) return dispatch(logout());
-        const {uid, email, displayName, photoURL} = user;
-        dispatch(login({uid, email, displayName, photoURL}));
-      })
-      
-    }
-  ,[])
+   const {status}=useCheckAuth();
+  
   if(status === 'checking') return <CheckingAuth/>
-
   return (
     <>
 
