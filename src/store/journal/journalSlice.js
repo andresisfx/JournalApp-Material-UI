@@ -4,15 +4,39 @@ export const journalSlice = createSlice({
     name: 'journal',
     initialState: {
          isSaving: true,
+        messageSaved: '',
+        notes: [],
+        active: null,
     },
     reducers: {
-        increment: (state, /* action */ ) => {
+        addNewEmptyNote: (state,action) => {
             
-            state.counter += 1;
+        },
+        setActivatedNote: (state,action) => {
+            
+        },
+        setNotes: (state,action) => {
+            
+        },
+        setSaving: (state,action) => {
+            
+        },
+        updateNote: (state,action) => {
+            
+        },
+        deleteNoteById: (state,action) => {
+            
         },
     }
 });
 
 
 
-export const { increment } = journalSlice.actions;
+export const {
+    addNewEmptyNote,
+    setActivatedNote,
+    setNotes,
+    setSaving,
+    updateNote,
+    deleteNoteById
+ } = journalSlice.actions;
