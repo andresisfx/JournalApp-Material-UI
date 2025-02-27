@@ -1,5 +1,6 @@
 import { SaveOutlined } from "@mui/icons-material"
 import { Grid2, Typography, Button, TextField } from "@mui/material"
+import { ImageGallery } from "./ImageGallery"
 
 
 
@@ -42,6 +43,7 @@ export const NoteView = () => {
             sx={{border:'none',mb:1}}
             />
       </Grid2>
+      <ImageGallery/>
     </Grid2>
   )
 }

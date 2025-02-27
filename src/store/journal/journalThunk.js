@@ -1,10 +1,12 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { firebaseBD } from "../../firebase/config";
-import { addNewEmptyNote, setActivatedNote } from "./journalSlice";
+import { addNewEmptyNote, savingNewNote, setActivatedNote } from "./journalSlice";
 
 
 export const startNewNote = () => {
     return async(dispatch, getState) => {
+
+        dispatch(savingNewNote());
         
         const {uid} = getState().authStore;
         const newNote = {
