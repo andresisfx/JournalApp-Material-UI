@@ -2,9 +2,12 @@
 
 import { InboxOutlined, MailOutlined } from '@mui/icons-material'
 import { Box, Divider, Drawer, Grid2, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import React, { use } from 'react'
+import { useSelector } from 'react-redux';
+import { SideBarItem } from './SideBarItem';
 
 export const SideBar = ({drawerWidth=240}) => {
+    const notes= useSelector(state => state.journalStore.notes);
   return (
     <Box
        component="nav"
@@ -26,20 +29,8 @@ export const SideBar = ({drawerWidth=240}) => {
              <Divider/>
              <List>
                 {
-                    ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio'].map((text, index) => (
-                        <ListItem key={text}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                     <InboxOutlined /> 
-                                </ListItemIcon>
-                                <Grid2 container>
-
-                                    <ListItemText primary={text} />
-                                    <ListItemText secondary={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, quos.'} />
-
-                                </Grid2>
-                            </ListItemButton>
-                        </ListItem>
+                    notes.map((note) => (
+                       <SideBarItem key={note.id} note={note}/>
                     ))
                 }
              </List>
