@@ -3,11 +3,13 @@
 import { InboxOutlined, MailOutlined } from '@mui/icons-material'
 import { Box, Divider, Drawer, Grid2, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import React, { use } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SideBarItem } from './SideBarItem';
 
 export const SideBar = ({drawerWidth=240}) => {
+
     const notes= useSelector(state => state.journalStore.notes);
+    
   return (
     <Box
        component="nav"
@@ -29,8 +31,8 @@ export const SideBar = ({drawerWidth=240}) => {
              <Divider/>
              <List>
                 {
-                    notes.map((note) => (
-                       <SideBarItem key={note.id} note={note}/>
+                    notes?.map((note) => (
+                       <SideBarItem key={note.id} {...note}/>
                     ))
                 }
              </List>

@@ -1,25 +1,33 @@
 import { InboxOutlined } from '@mui/icons-material'
 import { Grid2, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useMemo } from 'react'
+import { useDispatch } from 'react-redux';
+import { setActivatedNote } from '../../store/journal';
 
 
 
-export const SideBarItem = ({note}) => {
+export const SideBarItem = ({title,body,date,imageUrls}) => {
+  
+
+    const dispatch = useDispatch();
+    const onClickNote= ()=>{
+        dispatch( setActivatedNote({title,body,date,imageUrls}) );
+    }
     const newtitle = useMemo(() => {
-        return note.title.length > 17
-            ? note.title.substring(0, 17) + '...'
-            : note.title
-    }, [note.title])
+        return title?.length > 17
+            ? title.substring(0, 17) + '...'
+            : title
+    }, [title])
   return (
     <ListItem >
-                            <ListItemButton>
+                            <ListItemButton onClick={onClickNote}>
                                 <ListItemIcon>
                                      <InboxOutlined /> 
                                 </ListItemIcon>
                                 <Grid2 container>
 
                                     <ListItemText primary={newtitle} />
-                                    <ListItemText secondary={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, quos.'} />
+                                    <ListItemText secondary={body} />
 
                                 </Grid2>
                             </ListItemButton>

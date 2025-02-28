@@ -37,3 +37,16 @@ export const startLoadingNotes = () => {
     dispatch(setNotes(notes));
    }
 }
+
+export const startSaveingNote = () => {
+   return async(dispatch,getState) => {
+       const {uid} = getState().authStore;
+       const {active:note} = getState().journalStore;
+       const notefirestore =note
+       delete notefirestore.id;
+       
+
+       const docRef = doc(firebaseBD, `${uid}/journal/notes/${note.id}`)
+       await setDoc(docRef, notefirestore, {merge: true});//merge hace que los campos que existen en l DB y no se envian , se mantiene
+   }
+}
