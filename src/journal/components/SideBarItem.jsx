@@ -6,12 +6,12 @@ import { setActivatedNote } from '../../store/journal';
 
 
 
-export const SideBarItem = ({title,body,date,imageUrls}) => {
+export const SideBarItem = ({title,body,date,imageUrls,id}) => {
   
 
     const dispatch = useDispatch();
     const onClickNote= ()=>{
-        dispatch( setActivatedNote({title,body,date,imageUrls}) );
+        dispatch( setActivatedNote({title,body,date,imageUrls,id}) );
     }
     const newtitle = useMemo(() => {
         return title?.length > 17

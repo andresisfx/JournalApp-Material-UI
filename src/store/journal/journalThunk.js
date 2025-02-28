@@ -1,6 +1,6 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { firebaseBD } from "../../firebase/config";
-import { addNewEmptyNote, savingNewNote, setActivatedNote, setNotes } from "./journalSlice";
+import { addNewEmptyNote, savingNewNote, setActivatedNote, setNotes, setSaving, updateNote } from "./journalSlice";
 import { loadNotes } from "../../helpers";
 
 
@@ -40,13 +40,17 @@ export const startLoadingNotes = () => {
 
 export const startSaveingNote = () => {
    return async(dispatch,getState) => {
+
+       dispatch(setSaving());
        const {uid} = getState().authStore;
        const {active:note} = getState().journalStore;
-       const notefirestore =note
+
+       const notefirestore ={...note}
        delete notefirestore.id;
        
 
        const docRef = doc(firebaseBD, `${uid}/journal/notes/${note.id}`)
        await setDoc(docRef, notefirestore, {merge: true});//merge hace que los campos que existen en l DB y no se envian , se mantiene
+       dispatch(updateNote(note));
    }
 }

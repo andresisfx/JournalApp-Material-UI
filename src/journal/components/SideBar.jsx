@@ -8,7 +8,7 @@ import { SideBarItem } from './SideBarItem';
 
 export const SideBar = ({drawerWidth=240}) => {
 
-    const notes= useSelector(state => state.journalStore.notes);
+    const {notes} =  useSelector(state => state.journalStore);
     
   return (
     <Box

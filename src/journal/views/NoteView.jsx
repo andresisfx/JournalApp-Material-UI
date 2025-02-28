@@ -27,7 +27,7 @@ export const NoteView = () => {
     
   },[formState]);
 
-  const  onSaveForm = () => {
+  const  onSaveNote= () => {
     dispatch(startSaveingNote(formState));
   }
 
@@ -41,7 +41,7 @@ export const NoteView = () => {
       <Grid2 item>
         <Button 
           color="primary" 
-          onClick={onSaveForm}
+          onClick={onSaveNote}
           >
             <SaveOutlined sx={{fontSize:30,mr:1}}/>
            Guardar
