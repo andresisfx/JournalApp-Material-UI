@@ -24,7 +24,7 @@ export const startNewNote = () => {
         newNote.id = newDoc.id;
 
         dispatch(addNewEmptyNote(newNote));
-        dispatch(setActivatedNote(newNote.id));
+        dispatch(setActivatedNote({id:newNote.id}));
     }
 
 }
@@ -51,6 +51,7 @@ export const startSaveingNote = () => {
 
        const docRef = doc(firebaseBD, `${uid}/journal/notes/${note.id}`)
        await setDoc(docRef, notefirestore, {merge: true});//merge hace que los campos que existen en l DB y no se envian , se mantiene
+       console.log('entrando al dispatch del updatenotes');
        dispatch(updateNote(note));
    }
 }
