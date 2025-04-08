@@ -55,3 +55,11 @@ export const startSaveingNote = () => {
        dispatch(updateNote(note));
    }
 }
+
+export const statUpLoadingFiles =(files=[])=>{
+    return async (dispatch)=>{
+        dispatch(setSaving())
+        console.log(files)
+
+    }
+}

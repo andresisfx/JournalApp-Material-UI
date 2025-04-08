@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.css'
 import { ImageGallery } from "./ImageGallery"
 import { useForm } from "../../hooks";
-import { setActivatedNote, startSaveingNote } from "../../store/journal";
+import { setActivatedNote, startSaveingNote, statUpLoadingFiles } from "../../store/journal";
 
 
 
@@ -40,7 +40,7 @@ export const NoteView = () => {
   },[formState]);
   const onInputFileChange = ({target}) => {
     if(target.files.length === 0) return;
-    console.log("subiendo imagenes");
+    dispatch(statUpLoadingFiles(target.files));
   }
 
   return (
