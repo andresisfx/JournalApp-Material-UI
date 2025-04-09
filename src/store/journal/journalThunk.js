@@ -70,5 +70,6 @@ export const statUpLoadingFiles =(files=[])=>{
         console.log(photosUrls);
         dispatch(setPhotosToActiveNote(photosUrls));
         
+        
     }
 }

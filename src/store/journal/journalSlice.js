@@ -46,6 +46,7 @@ export const journalSlice = createSlice({
         },
         setPhotosToActiveNote : (state,action) => {
             state.active.imageUrls = [...state.active.imageUrls,...action.payload];//spread operator para agregar a las imágenes que habia antes  las que nos lleguen ahora
+            state.isSaving = false;
         },
         deleteNoteById: (state,action) => {
             
