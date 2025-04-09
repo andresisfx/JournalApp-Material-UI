@@ -1,5 +1,5 @@
 export const uploadFile = async (file) => {
-    const cloudUrl = 'https://api.cloudinary.com/v1_1/dh9x5t6jw/upload';
+    const cloudUrl = 'https://api.cloudinary.com/v1_1/dpd4mxi0u/upload';
     const formData = new FormData();
     formData.append('upload_preset', 'react-journal');
     formData.append('file', file);    
@@ -8,13 +8,16 @@ export const uploadFile = async (file) => {
             method: 'POST',
             body: formData
         });
+      
         if (resp.ok) {
             const cloudResp = await resp.json();
+         
             return cloudResp.secure_url;
         } else {
             throw await resp.json();
         }
     } catch (error) {
-        throw error;
+        console.log(error);
+        throw new error(error.message);
     }
     }

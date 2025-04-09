@@ -1,7 +1,7 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { firebaseBD } from "../../firebase/config";
-import { addNewEmptyNote, savingNewNote, setActivatedNote, setNotes, setSaving, updateNote } from "./journalSlice";
-import { loadNotes } from "../../helpers";
+import { addNewEmptyNote, savingNewNote, setActivatedNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "./journalSlice";
+import { loadNotes, uploadFile } from "../../helpers";
 
 
 export const startNewNote = () => {
@@ -59,7 +59,16 @@ export const startSaveingNote = () => {
 export const statUpLoadingFiles =(files=[])=>{
     return async (dispatch)=>{
         dispatch(setSaving())
-        console.log(files)
+        if(files.length === 0) throw new Error('No hay archivos a subir');
+        if(files.length > 20) throw new Error('No se pueden subir mas de 20 archivos');
 
+        const fileUploadPromises = [];
+        for (const file of files) {
+            fileUploadPromises.push(uploadFile(file));
+        }
+        const photosUrls = await Promise.all(fileUploadPromises);
+        console.log(photosUrls);
+        dispatch(setPhotosToActiveNote(photosUrls));
+        
     }
 }
