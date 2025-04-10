@@ -1,12 +1,12 @@
 import { use, useEffect, useMemo,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material"
+import { Delete, DeleteOutline, SaveOutlined, UploadOutlined } from "@mui/icons-material"
 import { Grid2, Typography, Button, TextField, IconButton } from "@mui/material"
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.css'
 import { ImageGallery } from "./ImageGallery"
 import { useForm } from "../../hooks";
-import { setActivatedNote, startSaveingNote, statUpLoadingFiles } from "../../store/journal";
+import { setActivatedNote, startSaveingNote, statUpLoadingFiles, startDeletingNote } from "../../store/journal";
 
 
 
@@ -43,6 +43,10 @@ export const NoteView = () => {
     dispatch(statUpLoadingFiles(target.files));
   }
 
+  const onDelete = () => {
+    dispatch(startDeletingNote());
+  }
+
   return (
     <Grid2 container direction={"row"} justifyContent={"space-between"} alignItems={"center"} sx={{ mb: 1 ,mt: 6}}>
         
@@ -72,6 +76,13 @@ export const NoteView = () => {
             <SaveOutlined sx={{fontSize:30,mr:1}}/>
            Guardar
         </Button>
+        <Button
+      onClick={ onDelete }
+      color="error"
+      >
+        <DeleteOutline sx={{fontSize:30,mr:1}}/>
+        Borrar nota
+      </Button>
       </Grid2>
 
       <Grid2 container size={{xs: 12}} >
@@ -102,6 +113,7 @@ export const NoteView = () => {
             onChange={onInputChange}
             />
       </Grid2>
+     
       <ImageGallery
        images={note.imageUrls}/>
     </Grid2>
