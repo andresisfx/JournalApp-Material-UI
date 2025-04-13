@@ -21,6 +21,7 @@ export const uploadFile = async (file) => {
     } catch (error) {
         // console.log(error);
         // throw new error(error.message);
+        console.error("Error al subir imagen:", error);
         return null
     }
     }
