@@ -3,7 +3,7 @@ import { registerUserWithEmailPasswordProvider, signInWithGoogle, loginWithEmail
 import { clearNotesLogout } from "../journal";
 import { login, logout,  checkingCredentials } from "./authSlice";
 
-export const checkingAuthentication = (email, password) => {
+export const checkingAuthentication = () => {
     return async(dispatch) => {
         dispatch(checkingCredentials());
     }

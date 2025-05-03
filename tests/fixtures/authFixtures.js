@@ -10,7 +10,7 @@ export const initialState = {
 export const authenticatedState = {
     status: 'authenticated',
     uid: '123456789',
-    email: 'andres@gmail.com',
+    email: 'andresis@gmail.com',
     displayName: 'Andres',
     photoURL: 'https://media.istockphoto.com/vectors/profile-picture-vector-id517998264?k=6&m=517998264&s=612x612&w=0&h=pBhzNBVZTXTqFLVJaOq7AaCZ0iOAzsJjQm4Rv4aTb5E=',
     errorMessage: null

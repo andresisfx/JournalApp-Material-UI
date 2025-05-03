@@ -3,5 +3,7 @@
 module.exports = {
     testEnvironment: 'jest-environment-jsdom',
     setupFiles: ['./jest.setup.js'],
-    transformIgnorePatterns:[]
+    transformIgnorePatterns:[],
+    forceExit: true,
+    detectOpenHandles: true,
 }
