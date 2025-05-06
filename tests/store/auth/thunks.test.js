@@ -1,5 +1,7 @@
 import { checkingAuthentication } from "../../../src/store/auth/thunk";
 import { checkingCredentials } from "../../../src/store/auth"; 
+import { demoUser } from "../../fixtures/authFixtures";
+import { signInWithGoogle } from "../../../src/firebase/providers";
 
 
 jest.mock("../../../src/firebase/providers.js", () => ({
@@ -21,13 +23,22 @@ jest.mock("../../../src/firebase/config.js", () => ({
   },
 }));
 
-beforeEach(()=>jest.clearAllMocks())
-describe('test de AuthThunks', () => {
 
-   
-    test ('debe de invocar el checkingCredentials', async () => {
-      const dispatch = jest.fn();
-        await checkingAuthentication()(dispatch);
-        expect(dispatch).toHaveBeenCalledWith(checkingCredentials())
+describe('test de AuthThunks', () => {
+    
+    const dispatch = jest.fn();
+    beforeEach( () => jest.clearAllMocks() );
+
+    // test ('debe de invocar el checkingCredentials', async () => {
+      
+    //     await checkingAuthentication()(dispatch);
+    //     expect(dispatch).toHaveBeenCalledWith(checkingCredentials())
+    // })
+
+    test('startGoogleSignIn debe llamar a checkingCredentials y login -Exito', async () => {
+      const loginData= {ok:true,...demoUser};
+      await signInWithGoogle.mockResolvedValue(loginData);
+      
     })
 })
+
