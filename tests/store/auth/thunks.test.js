@@ -1,5 +1,5 @@
-import { checkingAuthentication } from "../../../src/store/auth/thunk";
-import { checkingCredentials } from "../../../src/store/auth"; 
+import { checkingAuthentication, startGoogleSignIn } from "../../../src/store/auth/thunk";
+import { checkingCredentials, logout } from "../../../src/store/auth"; 
 import { demoUser } from "../../fixtures/authFixtures";
 import { signInWithGoogle } from "../../../src/firebase/providers";
 
@@ -38,6 +38,18 @@ describe('test de AuthThunks', () => {
     test('startGoogleSignIn debe llamar a checkingCredentials y login -Exito', async () => {
       const loginData= {ok:true,...demoUser};
       await signInWithGoogle.mockResolvedValue(loginData);
+      await startGoogleSignIn()(dispatch);
+      expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
+      expect(dispatch).toHaveBeenCalledWith(login(loginData));
+      
+    })
+
+    test('startGoogleSignIn debe llamar a checkingCredentials y logout -Error', async () => {
+      const loginData= {ok:false,errorMessage:'Un error en Google'};
+      await signInWithGoogle.mockResolvedValue();
+      await startGoogleSignIn()(dispatch);
+      expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
+      expect(dispatch).toHaveBeenCalledWith(logout(loginData.errorMessage));
       
     })
 })
